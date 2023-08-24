@@ -16,7 +16,7 @@ spec:
       containers:
         - name: container
           image: {{.Values.global.app.image.repository}}:{{.Values.global.app.image.tag}}
-          command: ["python3", "app.py"]
+          command: {{.Values.global.app.command}}
           envFrom:   #We get Env variables in the pod from the secret we created
             - secretRef:
                 name: {{ .Values.global.app.name}}-secret  #We refer to the name of the secret

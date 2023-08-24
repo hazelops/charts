@@ -17,4 +17,4 @@ spec:
         - destination:
             host: {{ .Values.global.app.name}}-service
             port:
-              number: 3000
+              number: {{ .Values.global.service.port}}
