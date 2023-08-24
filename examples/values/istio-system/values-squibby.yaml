@@ -1,14 +1,16 @@
 ingress-nginx:
-  enabled: true
-istio-system:
   enabled: false
+istio-system:
+  enabled: true
 
 global:
   env: dev
 
-  ingress:
+  istio:
     domain: nutcorp.net
-    uriList: /
+    uriList:
+      - /
+      - /name
     port: 3000
 
   app:
@@ -16,7 +18,7 @@ global:
     region: us-east-1
     containerName: squibby
     replicas: 1
-    command: [ "python3", "app.py" ]
+    command: '["python3", "app.py"]'
     image:
       repository: 322403564058.dkr.ecr.us-east-1.amazonaws.com/nutcorp-squibby
       # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
