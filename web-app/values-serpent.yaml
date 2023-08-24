@@ -11,7 +11,7 @@ global:
     region: us-east-1
     containerName: serpent
     replicas: 1
-    command: [ "python3", "app.py" ]
+    command: '[ "python3", "app.py" ]'
     image:
       repository: 322403564058.dkr.ecr.us-east-1.amazonaws.com/nutcorp-serpent
       # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
