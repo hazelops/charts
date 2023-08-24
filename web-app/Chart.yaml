@@ -1,0 +1,17 @@
+apiVersion: v1
+appVersion: 1.16.0
+description: A Helm chart for Kubernetes
+name: web-app
+type: application
+version: 0.3.0
+
+dependencies:
+- name: ingress-nginx
+  version: 0.1.0
+  repository: "file://../charts/ingress-nginx"
+  condition: ingress-nginx.enabled
+
+- name: istio-system
+  version: 0.1.0
+  repository: "file://../charts/istio-system"
+  condition: istio-system.enabled
