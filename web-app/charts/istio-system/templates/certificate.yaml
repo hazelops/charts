@@ -11,11 +11,10 @@ spec:
   secretName: {{ .Values.global.app.name}}-tls
   commonName: {{.Values.global.istio.domain}}
   dnsNames:
-    - {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.istio.domain}}
     - 'nutcorp.net'
     - '*.nutcorp.net'
     - '*.dev.nutcorp.net'
-    - 'squibby.dev.nutcorp.net'
+    - {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.istio.domain}}
   usages:
     - server auth
   duration: 2160h0m0s
