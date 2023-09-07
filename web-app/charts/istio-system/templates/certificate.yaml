@@ -11,8 +11,6 @@ spec:
   secretName: {{ .Values.global.app.name}}-tls
   commonName: {{.Values.global.istio.domain}}
   dnsNames:
-    - 'nutcorp.net'
-    - '*.nutcorp.net'
     - '*.{{ .Values.global.env}}.{{.Values.global.istio.domain}}'
   usages:
     - server auth
