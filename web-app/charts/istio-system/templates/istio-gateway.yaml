@@ -19,6 +19,6 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: {{ .Values.global.gateway.tlsIssuer}} } # This should match the Certificate secretName
+        credentialName: {{ .Values.global.gateway.tlsIssuer }}  # This should match the Certificate secretName
       hosts:
         - {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.istio.domain}}
