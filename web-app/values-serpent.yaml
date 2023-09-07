@@ -38,6 +38,9 @@ global:
     port: 3000
     targetPort: 3000
 
+  gateway:
+    tlsIssuer: eks-tls
+    
   iam_roles:
     r53: arn:aws:iam::322403564058:role/dev-eks-cluster-cert-manager-irsa
     ssm: arn:aws:iam::322403564058:role/dev-eks-cluster-external-secrets-sa-irsa
