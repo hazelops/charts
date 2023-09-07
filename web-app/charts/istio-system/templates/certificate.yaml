@@ -9,9 +9,10 @@ spec:
     kind: ClusterIssuer
     name: {{ .Values.global.app.name}}-tls-issuer
   secretName: {{ .Values.global.app.name}}-tls
-  commonName: {{.Values.global.istio.domain}}
+  commonName: {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.istio.domain}}
   dnsNames:
-    -  'nutcorp.net'
+    - {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.istio.domain}}
+    - 'nutcorp.net'
     - '*.nutcorp.net'
     - '*.dev.nutcorp.net'
   usages:
