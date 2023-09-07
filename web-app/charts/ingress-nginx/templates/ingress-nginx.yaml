@@ -21,4 +21,4 @@ spec:
   tls:
     - hosts:
         - {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.ingress.domain}}
-      secretName: {{ .Values.global.app.name}}-tls
+      secretName: {{ .Values.global.gateway.tlsIssuer}}
