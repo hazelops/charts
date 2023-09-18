@@ -1,0 +1,46 @@
+ingress-nginx:
+  enabled: false
+istio-system:
+  enabled: true
+
+global:
+  env: dev
+
+  app:
+    name: serpent
+    region: us-east-1
+    containerName: serpent
+    replicas: 1
+    command: '[ "python3", "app.py" ]'
+    image:
+      repository: 322403564058.dkr.ecr.us-east-1.amazonaws.com/nutcorp-serpent
+      # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
+      tag: dev-latest
+      imagePullPolicy: Always
+    variables:
+      list:
+        APP_NAME: serpent
+  secrets:
+    app: global
+    list:
+      - API_KEY
+      - DD_API_KEY
+      - API_SECRET
+      - openvpn_token
+
+  istio:
+    domain: nutcorp.net
+    uriList:
+      - /
+    port: 3000
+
+  service:
+    port: 3000
+    targetPort: 3000
+
+  gateway:
+    tlsIssuer: eks-tls
+    
+  iam_roles:
+    r53: arn:aws:iam::322403564058:role/dev-eks-cluster-cert-manager-irsa
+    ssm: arn:aws:iam::322403564058:role/dev-eks-cluster-external-secrets-sa-irsa
