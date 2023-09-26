@@ -6,35 +6,35 @@ istio-system:
 
 ## Environment to deploy app to.
 global:
-  env: dev
+  env: ""
   
-  ## Istio settings:
+## Istio settings:
   istio:
-    domain: <root domain name>
+    domain: ""
     uriList:
-      - /
+      - ""
     port: 3000
   
-  ## Ingress-Nginx settings:
+## Ingress-Nginx settings:
   ingress:
-    domain: nutcorp.net
+    domain: ""
     uriList:
       - /
     port: 3000
   
-  ## Application deploy settings:
+## Application deploy settings:
   app:
-    name: <app-name>
-    region: us-east-1
-    containerName: <container-name>
+    name: ""
+    region: ""
+    containerName: ""
     
-    ## Number of pod replicas:
+## Number of pod replicas:
     replicas: 1
     
-    ## Command to run in pod container:
-    command: '["python3", "app.py"]'
+## Command to run in pod container:
+    command: ''
     
-    ## Set image repository:
+## Set image repository:
     image:
       repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
       # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
@@ -42,32 +42,31 @@ global:
       ## Set image tag. `Dev-latest` by default.
       tag: dev-latest
       
-      ## Specify a imagePullPolicy
-      ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'.
+## Specify a imagePullPolicy
+## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'.
       imagePullPolicy: Always
     
     ## Define a list of variables. Use it like <variable-name>:<value>:      
     variables:
       list:
-        APP_NAME: <app-name>
-        SERPENT_URL: 'http://serpent-service.dev-serpent.svc.cluster.local:3000'
-  
-  ## Define a list of secrets. Secrets should be pulled to the Parameter store with the path: /env/global/<secret-name>:
+        APP_NAME: ""
+
+## Define a list of secrets. Secrets should be pulled to the Parameter store with the path: /env/global/<secret-name>:
   secrets:
     app: global
     list:
-      - API_KEY
+      - ""
   
-  ## Set a port app uses:
+## Set a port app uses:
   service:
     port: 3000
     targetPort: 3000
   
-  ## Set a TLS certificate issuer:
+## Set a TLS certificate issuer:
   gateway:
-    tlsIssuer: eks-tls
+    tlsIssuer: ""
   
-  ## Define a list of precreated IAM roles (by Terraform EKS module for example):
+## Define a list of pre-created IAM roles (by Terraform EKS module for example):
   iam_roles:
-    r53: arn:aws:iam::<aws-account-id>:role/dev-eks-cluster-cert-manager-irsa
-    ssm: arn:aws:iam::<aws-account-id>:role/dev-eks-cluster-external-secrets-sa-irsa
+    r53: ""
+    ssm: ""
