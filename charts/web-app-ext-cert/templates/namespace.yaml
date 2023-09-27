@@ -1,6 +1,8 @@
+# Create namespace for our apps
 apiVersion: v1
-kind: Namespace #Create namespace for our apps
+kind: Namespace
 metadata:
-  name: {{ .Values.env}}-{{ .Values.app.name}}   #Namespace name
+  # Namespace name
+  name: {{ .Values.env}}-{{ .Values.app.name}}
   labels:
     istio-injection: enabled

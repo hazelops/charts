@@ -5,7 +5,8 @@ metadata:
   namespace: {{.Values.env }}-{{ .Values.app.name}}
 spec:
   selector:
-    istio: ingressgateway # use istio default ingress gateway
+    # Use Istio default ingress gateway
+    istio: ingressgateway
   servers:
     - port:
         number: 80
@@ -19,6 +20,7 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: {{ .Values.gateway.tlsIssuer }}  # This should match the Certificate secretName
+        # This should match the Certificate secretName
+        credentialName: {{ .Values.gateway.tlsIssuer }}
       hosts:
         - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}

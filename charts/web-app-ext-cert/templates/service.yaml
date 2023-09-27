@@ -9,4 +9,5 @@ spec:
       targetPort: {{.Values.service.targetPort | default "3000"}}
       port: {{.Values.service.port | default "3000"}}
   selector:
-    app: {{.Values.app.name }}  # this is app name label
+    # This is app name label
+    app: {{.Values.app.name }}
