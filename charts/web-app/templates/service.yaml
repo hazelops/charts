@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{.Values.global.app.name}}-service
-  namespace: {{ .Values.global.env}}-{{ .Values.global.app.name}}
+  name: {{.Values.app.name}}-service
+  namespace: {{ .Values.env}}-{{ .Values.app.name}}
 spec:
   ports:
     - name: http
-      targetPort: {{.Values.global.service.targetPort | default "3000"}}
-      port: {{.Values.global.service.port | default "3000"}}
+      targetPort: {{.Values.service.targetPort | default "3000"}}
+      port: {{.Values.service.port | default "3000"}}
   selector:
-    app: {{.Values.global.app.name }}  # this is app name label
+    app: {{.Values.app.name }}  # this is app name label

@@ -1,0 +1,41 @@
+## Istio-system TLS certificate creation
+{{- if .Values.istio.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.app.name}}-tls-issuer
+  namespace: istio-system
+spec:
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: {{ .Values.app.name}}-tls-issuer
+  secretName: {{ .Values.app.name}}-tls
+  commonName: {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
+  dnsNames:
+    - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
+  usages:
+    - server auth
+  duration: 2160h0m0s
+  renewBefore: 360h0m0s
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+    rotationPolicy: Always
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: {{ .Values.app.name}}-tls-issuer
+  namespace: istio-system
+spec:
+  acme:
+    privateKeySecretRef:
+      name: letsencrypt
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+      - dns01:
+          route53:
+            region: {{.Values.app.region}}
+{{- end }}

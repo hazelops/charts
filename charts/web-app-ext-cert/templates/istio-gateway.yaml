@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ .Values.app.name}}-gateway
+  namespace: {{.Values.env }}-{{ .Values.app.name}}
+spec:
+  selector:
+    istio: ingressgateway # use istio default ingress gateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: {{ .Values.gateway.tlsIssuer }}  # This should match the Certificate secretName
+      hosts:
+        - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}

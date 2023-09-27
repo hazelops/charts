@@ -1,72 +1,70 @@
-## Disable or enable Istio or Ingress-Nginx.You can enable only one. Other one should be disabled.
-ingress-nginx:
-  enabled: false
-istio-system:
-  enabled: true
-
 ## Environment to deploy app to.
-global:
-  env: ""
-  
+
+env: ""
+
+## Disable or enable Istio or Ingress-Nginx.You can enable only one. Other one should be disabled.
+
 ## Istio settings:
-  istio:
-    domain: ""
-    uriList:
-      - ""
-    port: 3000
-  
+istio:
+  enabled: true
+  domain: ""
+  uriList:
+    - ""
+  port: 3000
+
 ## Ingress-Nginx settings:
-  ingress:
-    domain: ""
-    uriList:
-      - /
-    port: 3000
-  
+ingress:
+  enabled: false
+  domain: ""
+  uriList:
+    - /
+  port: 3000
+
 ## Application deploy settings:
-  app:
-    name: ""
-    region: ""
-    containerName: ""
-    
+app:
+  name: ""
+  region: ""
+  containerName: ""
+
 ## Number of pod replicas:
-    replicas: 1
-    
+  replicas: 1
+
 ## Command to run in pod container:
-    command: ''
-    
+  command: ''
+
 ## Set image repository:
-    image:
-      repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
-      # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
-      
-      ## Set image tag. `Dev-latest` by default.
-      tag: dev-latest
-      
+  image:
+    repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
+    # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
+
+    ## Set image tag. `Dev-latest` by default.
+    tag: dev-latest
+
 ## Specify a imagePullPolicy
 ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'.
-      imagePullPolicy: Always
-    
-    ## Define a list of variables. Use it like <variable-name>:<value>:      
-    variables:
-      list:
-        APP_NAME: ""
+    imagePullPolicy: Always
+
+  ## Define a list of variables. Use it like <variable-name>:<value>:
+  variables:
+    list:
+      APP_NAME: ""
 
 ## Define a list of secrets. Secrets should be pulled to the Parameter store with the path: /env/global/<secret-name>:
-  secrets:
-    app: global
-    list:
-      - ""
-  
+secrets:
+  app: global
+  list:
+    - ""
+
 ## Set a port app uses:
-  service:
-    port: 3000
-    targetPort: 3000
-  
+service:
+  port: 3000
+  targetPort: 3000
+
 ## Set a TLS certificate issuer:
-  gateway:
-    tlsIssuer: ""
-  
+gateway:
+  tlsIssuer: ""
+
 ## Define a list of pre-created IAM roles (by Terraform EKS module for example):
-  iam_roles:
-    r53: ""
-    ssm: ""
+iam_roles:
+  r53: ""
+  ssm: ""
