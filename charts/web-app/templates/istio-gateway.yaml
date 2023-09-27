@@ -1,4 +1,4 @@
-## Istio-system gateway creation
+# Istio-system gateway creation
 {{- if .Values.istio.enabled }}
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -7,7 +7,8 @@ metadata:
   namespace: {{.Values.env }}-{{ .Values.app.name}}
 spec:
   selector:
-    istio: ingressgateway # use istio default ingress gateway
+    # Use istio default ingress gateway
+    istio: ingressgateway
   servers:
     - port:
         number: 80
@@ -21,7 +22,8 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: {{ .Values.app.name}}-tls # This should match the Certificate secretName
+        # This should match the Certificate secretName
+        credentialName: {{ .Values.app.name}}-tls
       hosts:
         - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
 {{- end }}

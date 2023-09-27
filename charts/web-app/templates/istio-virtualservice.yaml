@@ -1,4 +1,4 @@
-## Istio-system virtual service creation
+# Istio-system virtual service creation
 {{- if .Values.istio.enabled }}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
