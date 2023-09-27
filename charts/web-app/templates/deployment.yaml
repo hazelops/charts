@@ -25,5 +25,3 @@ spec:
             - name: {{ $key }}
               value: {{ $value }}
           {{- end }}
-
-
