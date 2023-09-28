@@ -1,1 +1,1 @@
-# charts
+# Hazelops Helm Charts

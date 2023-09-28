@@ -1,0 +1,33 @@
+# Create Deployment (APP deploy)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name}}-deployment
+  # Use the namespace we created in this chart
+  namespace: "{{ .Values.env}}-{{ .Values.app.name}}"
+spec:
+  # Replicas count
+  replicas: {{ .Values.app.replicas}}
+  selector:
+    matchLabels:
+      # Application name
+      app: {{ .Values.app.name}}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name}}
+    spec:
+      containers:
+        - name: container
+          image: {{.Values.app.image.repository}}:{{.Values.app.image.tag}}
+          command: {{.Values.app.command}}
+          envFrom:
+            # We get Env variables in the pod from the secret we created
+            - secretRef:
+                # We refer to the name of the secret
+                name: {{ .Values.app.name}}-secret
+          env:
+          {{- range $key, $value := .Values.app.variables.list }}
+            - name: {{ $key }}
+              value: {{ $value }}
+          {{- end }}
