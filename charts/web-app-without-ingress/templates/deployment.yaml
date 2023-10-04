@@ -5,6 +5,8 @@ metadata:
   name: {{ .Values.app.name}}-deployment
   # Use the same namespace we created
   namespace: {{ .Values.env}}-{{ .Values.app.name}}
+  annotations:
+    link.argocd.argoproj.io/external-link: https://{{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
 spec:
   # Replicas count
   replicas: {{ .Values.app.replicas}}
