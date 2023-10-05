@@ -6,7 +6,7 @@ metadata:
   # Use the namespace we created in this chart
   namespace: "{{ .Values.env}}-{{ .Values.app.name}}"
   annotations:
-    link.argocd.argoproj.io/external-link: https://{{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
+    link.argocd.argoproj.io/external-link: https://{{ .Values.app.name}}.{{ .Values.env}}.{{.Values.app.domain}}
 spec:
   # Replicas count
   replicas: {{ .Values.app.replicas}}
