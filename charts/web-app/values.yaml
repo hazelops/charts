@@ -25,6 +25,7 @@ app:
   name: ""
   region: ""
   containerName: ""
+  domain: ""
 
 ## Number of pod replicas:
   replicas: 1
