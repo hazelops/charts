@@ -1,21 +1,22 @@
-## Environment to deploy app to.
+# Environment to deploy app to.
 
 env: ""
 
-## Disable or enable Istio or Ingress-Nginx.You can enable only one. Other one should be disabled.
+# Disable or enable Istio or Ingress-Nginx.You can enable only one. Other one should be disabled.
 
 ## Istio settings:
 istio:
   enabled: true
+  create_certificate: true
   domain: ""
   uriList:
     - ""
   port: 3000
-  tlsIssuer: ""
 
 ## Ingress-Nginx settings:
 ingress:
   enabled: false
+  create_certificate: false
   domain: ""
   uriList:
     - /
@@ -36,7 +37,7 @@ app:
 
 ## Set image repository:
   image:
-    repository: ""
+    repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
     # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
 
     ## Set image tag. `Dev-latest` by default.
@@ -46,7 +47,7 @@ app:
 ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'.
     imagePullPolicy: Always
 
-  ## Define a list of variables. Use it like <variable-name>:<value>:
+## Define a list of variables. Use it like <variable-name>:<value>:
   variables:
     list:
       APP_NAME: ""
