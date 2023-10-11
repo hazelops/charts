@@ -22,5 +22,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.ingress.domain}}
+      {{- if .Values.ingress.create_certificate}}
       secretName: {{ .Values.app.name}}-tls
+      {{ else }}
+      secretName: {{ .Values.ingress.tls_certificate_name}}
+      {{- end }}
 {{- end }}

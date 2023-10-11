@@ -23,7 +23,11 @@ spec:
       tls:
         mode: SIMPLE
         # This should match the Certificate secretName
+        {{- if .Values.istio.create_certificate}}
         credentialName: {{ .Values.app.name}}-tls
+        {{ else }}
+        credentialName: {{ .Values.istio.tls_certificate_name}}
+        {{- end }}
       hosts:
         - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
 {{- end }}

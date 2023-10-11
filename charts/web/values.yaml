@@ -2,12 +2,14 @@
 
 env: ""
 
-# Disable or enable Istio or Ingress-Nginx.You can enable only one. Other one should be disabled.
+# Disable or enable Istio or Ingress-Nginx.Only one could be enabled. Other one should be disabled.
 
 ## Istio settings:
 istio:
   enabled: true
   create_certificate: true
+  # Use tls_certificate_name if cluster have already created certificates
+  tls_certificate_name: ""
   domain: ""
   uriList: /
   port: 3000
@@ -16,6 +18,8 @@ istio:
 ingress:
   enabled: false
   create_certificate: false
+  # Use tls_certificate_name if cluster have already created certificates
+  tls_certificate_name: ""
   domain: ""
   uriList: /
   port: 3000
