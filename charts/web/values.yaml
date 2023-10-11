@@ -9,8 +9,7 @@ istio:
   enabled: true
   create_certificate: true
   domain: ""
-  uriList:
-    - ""
+  uriList: /
   port: 3000
 
 ## Ingress-Nginx settings:
@@ -18,8 +17,7 @@ ingress:
   enabled: false
   create_certificate: false
   domain: ""
-  uriList:
-    - /
+  uriList: /
   port: 3000
 
 ## Application deploy settings:
