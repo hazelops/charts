@@ -3,4 +3,4 @@ appVersion: 1.3.0
 description: Simple web application with Istio & Ingress-nginx inside
 name: web
 type: application
-version: 0.4.0
+version: 0.4.1
