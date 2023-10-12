@@ -1,4 +1,4 @@
-{{- if and .Values.ingress.enabled .Values.ingress.create_certificate}}
+{{- if and .Values.global.ingress.enabled .Values.global.ingress.create_certificate}}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -11,5 +11,5 @@ spec:
     solvers:
       - dns01:
           route53:
-            region: {{.Values.app.region  | default "us-east-1"}}
+            region: {{.Values.global.app.region  | default "us-east-1"}}
 {{- end }}

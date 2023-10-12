@@ -1,19 +1,19 @@
-{{- if and .Values.istio.enabled .Values.istio.create_certificate }}
+{{- if and .Values.global.istio.enabled .Values.global.istio.create_certificate }}
 # Istio-system TLS certificate creation
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ .Values.app.name}}-tls-issuer
+  name: {{ .Values.global.app.name}}-tls-issuer
   namespace: istio-system
 spec:
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
-    name: {{ .Values.app.name}}-tls-issuer
-  secretName: {{ .Values.app.name}}-tls
-  commonName: {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
+    name: {{ .Values.global.app.name}}-tls-issuer
+  secretName: {{ .Values.global.app.name}}-tls
+  commonName: {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.istio.domain}}
   dnsNames:
-    - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.istio.domain}}
+    - {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.istio.domain}}
   usages:
     - server auth
   duration: 2160h0m0s
@@ -27,7 +27,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: {{ .Values.app.name}}-tls-issuer
+  name: {{ .Values.global.app.name}}-tls-issuer
   namespace: istio-system
 spec:
   acme:
@@ -37,5 +37,5 @@ spec:
     solvers:
       - dns01:
           route53:
-            region: {{.Values.app.region}}
+            region: {{.Values.global.app.region}}
 {{- end }}
