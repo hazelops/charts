@@ -3,9 +3,9 @@ entries:
   web:
   - apiVersion: v1
     appVersion: 1.3.0
-    created: "2023-10-12T07:56:33.174468981Z"
+    created: "2023-10-12T08:40:27.797640853Z"
     description: Simple web application with Istio & Ingress-nginx inside
-    digest: 9d60181f08f9975dc1a6a973d7185af6775fe8a8d45f8a05573596d07d879975
+    digest: 4fc0cfb80dbb1a0ab509259ad7b638ed4202a4ec7431c840f93186b4cb826fe1
     name: web
     type: application
     urls:
@@ -14,7 +14,7 @@ entries:
   web-app:
   - apiVersion: v1
     appVersion: 1.3.0
-    created: "2023-10-12T07:56:33.17495639Z"
+    created: "2023-10-12T08:40:27.798033977Z"
     description: Simple web application with Istio & Ingress-nginx inside
     digest: 3f5ca7e1664bf5f8ec50ed03f415e84dd8e3dd2c1508aa29b96ea9bf52847384
     name: web-app
@@ -25,7 +25,7 @@ entries:
   web-app-without-ingress:
   - apiVersion: v1
     appVersion: 1.3.0
-    created: "2023-10-12T07:56:33.175408099Z"
+    created: "2023-10-12T08:40:27.798394999Z"
     description: Web-app for a cluster with Istio or Ingress-nginx
     digest: 57969d5bd7b033ccaecceadbca10b63142cebe5a207793a6105614b237fdff55
     name: web-app-without-ingress
@@ -33,4 +33,4 @@ entries:
     urls:
     - https://hazelops.github.io/charts/web-app-without-ingress-0.3.0.tgz
     version: 0.3.0
-generated: "2023-10-12T07:56:33.173762168Z"
+generated: "2023-10-12T08:40:27.797085418Z"
