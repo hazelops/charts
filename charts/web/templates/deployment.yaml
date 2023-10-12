@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.app.name}}-deployment
   # Use the namespace we created in this chart
-  namespace: "{{ .Values.env}}-{{ .Values.app.name}}"
+  namespace: {{ .Values.env}}-{{ .Values.app.name}}
   annotations:
     link.argocd.argoproj.io/external-link: https://{{ .Values.app.name}}.{{ .Values.env}}.{{.Values.app.domain}}
 spec:
