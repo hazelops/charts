@@ -6,8 +6,8 @@ global:
 
 ## Istio settings:
   istio:
-    enabled: true
-    create_certificate: true
+    enabled: false
+    create_certificate: false
     # Use tls_certificate_name if cluster have already created certificates
     tls_certificate_name: ""
     domain: domain.local
