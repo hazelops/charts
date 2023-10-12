@@ -1,30 +1,30 @@
-{{- if .Values.ingress.enabled }}
+{{- if .Values.global.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-dns-nginx-issuer
-  name: {{ .Values.app.name}}-ingress
-  namespace: {{.Values.env}}-{{ .Values.app.name}}
+  name: {{ .Values.global.app.name}}-ingress
+  namespace: {{.Values.global.env}}-{{ .Values.global.app.name}}
 spec:
   ingressClassName: nginx
   rules:
-    - host: {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.ingress.domain}}
+    - host: {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.ingress.domain}}
       http:
         paths:
           - path: /
             backend:
               service:
-                name: {{ .Values.app.name}}-service
+                name: {{ .Values.global.app.name}}-service
                 port:
-                  number: {{.Values.ingress.port | default "3000"}}
+                  number: {{.Values.global.ingress.port | default "3000"}}
             pathType: ImplementationSpecific
   tls:
     - hosts:
-        - {{ .Values.app.name}}.{{ .Values.env}}.{{.Values.ingress.domain}}
-      {{- if .Values.ingress.create_certificate}}
-      secretName: {{ .Values.app.name}}-tls
+        - {{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.ingress.domain}}
+      {{- if .Values.global.ingress.create_certificate}}
+      secretName: {{ .Values.global.app.name}}-tls
       {{ else }}
-      secretName: {{ .Values.ingress.tls_certificate_name}}
+      secretName: {{ .Values.global.ingress.tls_certificate_name}}
       {{- end }}
 {{- end }}
