@@ -1,6 +1,6 @@
 # Environment to deploy app to.
 
-env: ""
+env: local
 
 # Disable or enable Istio or Ingress-Nginx.Only one could be enabled. Other one should be disabled.
 
@@ -10,8 +10,7 @@ istio:
   create_certificate: true
   # Use tls_certificate_name if cluster have already created certificates
   tls_certificate_name: ""
-  domain: ""
-  uriList: /
+  domain: domain.local
   port: 3000
 
 ## Ingress-Nginx settings:
@@ -20,16 +19,15 @@ ingress:
   create_certificate: false
   # Use tls_certificate_name if cluster have already created certificates
   tls_certificate_name: ""
-  domain: ""
-  uriList: /
+  domain: domain.local
   port: 3000
 
 ## Application deploy settings:
 app:
-  name: ""
-  region: ""
+  name: app
+  region: aws-region
   containerName: ""
-  domain: ""
+  domain: domain.local
 
 ## Number of pod replicas:
   replicas: 1
