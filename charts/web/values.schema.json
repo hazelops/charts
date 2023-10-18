@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "type": "object",
+  "required": [
+    "global"
+  ],
+  "properties": {
+    "global": {
+      "type": "object",
+      "required": [
+        "env",
+        "istio",
+        "ingress",
+        "app",
+        "secrets",
+        "service",
+        "gateway",
+        "iam_roles"
+      ],
+      "properties": {
+        "env": {
+          "type": "string"
+        },
+        "istio": {
+          "type": "object",
+          "required": [
+            "enabled",
+            "create_certificate",
+            "tls_certificate_name",
+            "domain",
+            "port"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "create_certificate": {
+              "type": "boolean"
+            },
+            "tls_certificate_name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "port": {
+              "type": "integer"
+            }
+          }
+        },
+        "ingress": {
+          "type": "object",
+          "required": [
+            "enabled",
+            "create_certificate",
+            "tls_certificate_name",
+            "domain",
+            "port"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "create_certificate": {
+              "type": "boolean"
+            },
+            "tls_certificate_name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "port": {
+              "type": "integer"
+            }
+          }
+        },
+        "app": {
+          "type": "object",
+          "required": [
+            "name",
+            "region",
+            "containerName",
+            "domain",
+            "replicas",
+            "command",
+            "image",
+            "variables"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "containerName": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "replicas": {
+              "type": "integer"
+            },
+            "command": {
+              "type": "string"
+            },
+            "image": {
+              "type": "object",
+              "required": [
+                "repository",
+                "tag",
+                "imagePullPolicy"
+              ],
+              "properties": {
+                "repository": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                },
+                "imagePullPolicy": {
+                  "type": "string"
+                }
+              }
+            },
+            "variables": {
+              "type": "object",
+              "required": [
+                "list"
+              ],
+              "properties": {
+                "list": {
+                  "type": "object",
+                  "required": [
+                    "APP_NAME"
+                  ],
+                  "properties": {
+                    "APP_NAME": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "secrets": {
+          "type": "object",
+          "required": [
+            "app",
+            "list"
+          ],
+          "properties": {
+            "app": {
+              "type": "string"
+            },
+            "list": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "service": {
+          "type": "object",
+          "required": [
+            "port",
+            "targetPort"
+          ],
+          "properties": {
+            "port": {
+              "type": "integer"
+            },
+            "targetPort": {
+              "type": "integer"
+            }
+          }
+        },
+        "gateway": {
+          "type": "object",
+          "required": [
+            "tlsIssuer"
+          ],
+          "properties": {
+            "tlsIssuer": {
+              "type": "string"
+            }
+          }
+        },
+        "iam_roles": {
+          "type": "object",
+          "required": [
+            "r53",
+            "ssm"
+          ],
+          "properties": {
+            "r53": {
+              "type": "string"
+            },
+            "ssm": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
