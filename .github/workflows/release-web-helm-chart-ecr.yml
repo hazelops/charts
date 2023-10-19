@@ -1,4 +1,15 @@
 name: ECR Push Web Helm Chart
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPO_NAME: hazelops-charts
+  CHART_PATH: ./charts/web
+
+
 on:
   push:
     branches:
@@ -16,11 +27,43 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Package and Push a Helm Chart to AWS ECR
-        uses: explorium-ai/package-helm-ecr-action@main
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
-          aws-region: us-east-1
-          ecr-repo-name: hazelops-charts
-          chart-path: ./charts/web
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        id: ecr
+        uses: elgohr/ecr-login-action@v3
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+          region: ${{ env.AWS_REGION }}
+
+      - name: Create AWS ECR Repository if it does not exist
+        shell: bash
+        env:
+          ECR_REPOSITORY: ${{ env.ECR_REPO_NAME }}
+        run: |
+          aws ecr describe-repositories --repository-names $ECR_REPOSITORY || aws ecr create-repository --repository-name $ECR_REPOSITORY
+
+      - name: Install PyBump
+        run: |
+          python3 -m pip install pybump
+        shell: bash
+
+      - name: Helm Chart Release
+        env:
+          ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.ECR_REPO_NAME }}
+          HELM_EXPERIMENTAL_OCI: "1"
+        run: |
+          version=$(pybump get --file ${{ env.CHART_PATH }}/Chart.yaml)
+          helm package \
+          ${{ env.CHART_PATH }} \
+          --app-version $version \
+          --version $version
+          echo pushing $(basename ${{ env.CHART_PATH }})-$version.tgz to oci://$ECR_REGISTRY
+          helm push $(basename ${{ env.CHART_PATH }})-$version.tgz oci://$ECR_REGISTRY
+        shell: bash
