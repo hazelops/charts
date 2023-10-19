@@ -56,7 +56,7 @@ jobs:
       - name: Helm Chart Release
         env:
           ECR_REPOSITORY: ${{ env.ECR_REPO_NAME }}
-          HELM_EXPERIMENTAL_OCI: "1"
+          HELM_EXPERIMENTAL_OCI: 1
         run: |
           ECR_REGISTRY=$(echo ${{ steps.ecr.outputs.registry }} | sed -E 's/^\s*.*:\/\///g')
           version=$(pybump get --file ${{ env.CHART_PATH }}/Chart.yaml)
