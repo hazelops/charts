@@ -6,7 +6,7 @@ defaults:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPO_NAME: hazelops-charts
+  ECR_REPO_NAME: web
   CHART_PATH: ./charts/web
 
 
