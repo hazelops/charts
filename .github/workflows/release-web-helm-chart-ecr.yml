@@ -64,6 +64,7 @@ jobs:
           ${{ env.CHART_PATH }} \
           --app-version $version \
           --version $version
+          aws ecr get-login-password | helm registry login --username AWS --password-stdin $ECR_REGISTRY
           echo pushing $(basename ${{ env.CHART_PATH }})-$version.tgz to oci://$ECR_REGISTRY
           helm push $(basename ${{ env.CHART_PATH }})-$version.tgz oci://$ECR_REGISTRY
         shell: bash
