@@ -43,6 +43,11 @@ jobs:
           python3 -m pip install pybump
         shell: bash
 
+      - name: Install Helm 3.12
+        uses: azure/setup-helm@v3
+        with:
+          version: 'v3.12.2'
+
       - name: Helm Chart Release
         env:
           HELM_EXPERIMENTAL_OCI: 1
