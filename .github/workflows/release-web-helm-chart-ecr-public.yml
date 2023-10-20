@@ -10,7 +10,6 @@ env:
   CHART_PATH: ./charts/web
   ECR_PUBLIC_REPO_ALIAS: o2d6g3h3
 
-
 on:
   push:
     branches:
@@ -48,9 +47,10 @@ jobs:
         env:
           HELM_EXPERIMENTAL_OCI: 1
         run: |
+          helm version
           version=$(pybump get --file ${{ env.CHART_PATH }}/Chart.yaml)
           helm package ${{ env.CHART_PATH }} --app-version $version --version $version
           aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | helm registry login --username AWS --password-stdin public.ecr.aws
           echo pushing $(basename ${{ env.CHART_PATH }})-$version.tgz to oci://public.ecr.aws/${{ env.ECR_PUBLIC_REPO_ALIAS }}
-          helm push $(basename ${{ env.CHART_PATH }})-$version.tgz oci://public.ecr.aws/${{ env.ECR_PUBLIC_REPO_ALIAS }}
+          helm push --debug $(basename ${{ env.CHART_PATH }})-$version.tgz oci://public.ecr.aws/${{ env.ECR_PUBLIC_REPO_ALIAS }}
         shell: bash
