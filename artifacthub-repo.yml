@@ -1,0 +1,6 @@
+# Artifact Hub repository metadata file
+# Used to become verified publisher and more - https://artifacthub.io/docs/topics/repositories/#verified-publisher
+repositoryID: 42ef24d2-e02c-4057-b026-2b23c8547f9d
+owners:
+  - name: HazelOps OÜ
+    email: deploy@hazelops.com
