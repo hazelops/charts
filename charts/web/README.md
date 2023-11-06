@@ -116,5 +116,3 @@ helm show values hazelops/web
 | global.secrets.list[0] | string | `""` |  |
 | global.service.port | int | `3000` |  |
 | global.service.targetPort | int | `3000` |  |
-
-----------------------------------------------
