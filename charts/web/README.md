@@ -83,23 +83,39 @@ See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_h
 helm show values hazelops/web
 ```
 
-
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.app.command | string | `""` |  |
 | global.app.containerName | string | `""` |  |
 | global.app.domain | string | `"domain.local"` |  |
-| global.app.image.imagePullPolicy | string | `"Always"` |  |
-| global.app.image.repository | string | `"<aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>"` |  |
-| global.app.image.tag | string | `"dev-latest"` |  |
 | global.app.name | string | `"app"` |  |
 | global.app.region | string | `"aws-region"` |  |
 | global.app.replicas | int | `1` |  |
-| global.app.variables.list.APP_NAME | string | `""` |  |
 | global.env | string | `"local"` |  |
 | global.gateway.tlsIssuer | string | `""` |  |
+| global.hpa.behavior.scaleDown.percentPeriodSeconds | int | `60` |  |
+| global.hpa.behavior.scaleDown.percentValue | int | `10` |  |
+| global.hpa.behavior.scaleDown.podsPeriodSeconds | int | `60` |  |
+| global.hpa.behavior.scaleDown.podsValue | int | `5` |  |
+| global.hpa.behavior.scaleDown.selectPolicy | string | `"MIN"` |  |
+| global.hpa.behavior.scaleDown.stabilizationWindowSeconds | int | `0` |  |
+| global.hpa.behavior.scaleUp.percentPeriodSeconds | int | `15` |  |
+| global.hpa.behavior.scaleUp.percentValue | int | `100` |  |
+| global.hpa.behavior.scaleUp.podsPeriodSeconds | int | `15` |  |
+| global.hpa.behavior.scaleUp.podsValue | int | `5` |  |
+| global.hpa.behavior.scaleUp.selectPolicy | string | `"MAX"` |  |
+| global.hpa.behavior.scaleUp.stabilizationWindowSeconds | int | `0` |  |
+| global.hpa.command | string | `""` |  |
+| global.hpa.enabled | bool | `false` |  |
+| global.hpa.image.imagePullPolicy | string | `"Always"` |  |
+| global.hpa.image.repository | string | `"<aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>"` |  |
+| global.hpa.image.tag | string | `"dev-latest"` |  |
+| global.hpa.maxReplicas | int | `4` |  |
+| global.hpa.metrics.cpuUtilization | int | `50` |  |
+| global.hpa.metrics.memoryUtilization | string | `"3Gi"` |  |
+| global.hpa.minReplicas | int | `2` |  |
+| global.hpa.variables.list.APP_NAME | string | `""` |  |
 | global.iam_roles.r53 | string | `""` |  |
 | global.iam_roles.ssm | string | `""` |  |
 | global.ingress.create_certificate | bool | `false` |  |
@@ -116,3 +132,5 @@ helm show values hazelops/web
 | global.secrets.list[0] | string | `""` |  |
 | global.service.port | int | `3000` |  |
 | global.service.targetPort | int | `3000` |  |
+
+----------------------------------------------

@@ -28,9 +28,33 @@ global:
     region: aws-region
     containerName: ""
     domain: domain.local
-
-## Number of pod replicas:
+## Number of pod replicas(Disabled when HPA enabled):
     replicas: 1
+
+## Horizontal pod autoscaling settings:
+  hpa:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    behavior:
+      scaleUp:
+        stabilizationWindowSeconds: 0
+        percentValue: 100
+        percentPeriodSeconds: 15
+        podsValue: 5
+        podsPeriodSeconds: 15
+        selectPolicy: MAX
+      scaleDown:
+        stabilizationWindowSeconds: 0
+        percentValue: 10
+        percentPeriodSeconds: 60
+        podsValue: 5
+        podsPeriodSeconds: 60
+        selectPolicy: MIN
+    metrics:
+      cpuUtilization: 50
+      memoryUtilization: 3Gi
+
 
 ## Command to run in pod container:
     command: ''

@@ -9,7 +9,9 @@ metadata:
     link.argocd.argoproj.io/external-link: https://{{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.app.domain}}
 spec:
   # Replicas count
+  {{- if not .Values.global.hpa.enabled }}
   replicas: {{ .Values.global.app.replicas}}
+  {{- end }}
   selector:
     matchLabels:
       # Application name
