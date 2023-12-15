@@ -34,8 +34,11 @@ global:
 ## Horizontal pod autoscaling settings:
   hpa:
     enabled: false
+    # Minimum number of replicas
     minReplicas: 2
+    # Maximum number of replicas
     maxReplicas: 4
+    # Scaling behavior settings(optimal defaults)
     behavior:
       scaleUp:
         stabilizationWindowSeconds: 0
@@ -51,8 +54,11 @@ global:
         podsValue: 5
         podsPeriodSeconds: 60
         selectPolicy: MIN
+    # Scaling (up/down) initiation conditions
     metrics:
+      # When the CPU load in the pod is more than 50% (could be changed)
       cpuUtilization: 50
+      # When the memory utilization in the pod is greater than 3Gi (could be changed)
       memoryUtilization: 3Gi
 
 
