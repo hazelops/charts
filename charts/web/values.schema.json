@@ -12,6 +12,7 @@
         "istio",
         "ingress",
         "app",
+        "hpa",
         "secrets",
         "service",
         "gateway",
@@ -82,10 +83,7 @@
             "region",
             "containerName",
             "domain",
-            "replicas",
-            "command",
-            "image",
-            "variables"
+            "replicas"
           ],
           "properties": {
             "name": {
@@ -102,6 +100,116 @@
             },
             "replicas": {
               "type": "integer"
+            }
+          }
+        },
+        "hpa": {
+          "type": "object",
+          "required": [
+            "enabled",
+            "minReplicas",
+            "maxReplicas",
+            "behavior",
+            "metrics",
+            "command",
+            "image",
+            "variables"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "minReplicas": {
+              "type": "integer"
+            },
+            "maxReplicas": {
+              "type": "integer"
+            },
+            "behavior": {
+              "type": "object",
+              "required": [
+                "scaleUp",
+                "scaleDown"
+              ],
+              "properties": {
+                "scaleUp": {
+                  "type": "object",
+                  "required": [
+                    "stabilizationWindowSeconds",
+                    "percentValue",
+                    "percentPeriodSeconds",
+                    "podsValue",
+                    "podsPeriodSeconds",
+                    "selectPolicy"
+                  ],
+                  "properties": {
+                    "stabilizationWindowSeconds": {
+                      "type": "integer"
+                    },
+                    "percentValue": {
+                      "type": "integer"
+                    },
+                    "percentPeriodSeconds": {
+                      "type": "integer"
+                    },
+                    "podsValue": {
+                      "type": "integer"
+                    },
+                    "podsPeriodSeconds": {
+                      "type": "integer"
+                    },
+                    "selectPolicy": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "scaleDown": {
+                  "type": "object",
+                  "required": [
+                    "stabilizationWindowSeconds",
+                    "percentValue",
+                    "percentPeriodSeconds",
+                    "podsValue",
+                    "podsPeriodSeconds",
+                    "selectPolicy"
+                  ],
+                  "properties": {
+                    "stabilizationWindowSeconds": {
+                      "type": "integer"
+                    },
+                    "percentValue": {
+                      "type": "integer"
+                    },
+                    "percentPeriodSeconds": {
+                      "type": "integer"
+                    },
+                    "podsValue": {
+                      "type": "integer"
+                    },
+                    "podsPeriodSeconds": {
+                      "type": "integer"
+                    },
+                    "selectPolicy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "metrics": {
+              "type": "object",
+              "required": [
+                "cpuUtilization",
+                "memoryUtilization"
+              ],
+              "properties": {
+                "cpuUtilization": {
+                  "type": "integer"
+                },
+                "memoryUtilization": {
+                  "type": "string"
+                }
+              }
             },
             "command": {
               "type": "string"
