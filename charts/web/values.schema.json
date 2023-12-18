@@ -110,10 +110,7 @@
             "minReplicas",
             "maxReplicas",
             "behavior",
-            "metrics",
-            "command",
-            "image",
-            "variables"
+            "metrics"
           ],
           "properties": {
             "enabled": {

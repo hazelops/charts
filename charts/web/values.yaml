@@ -36,42 +36,6 @@ global:
     image:
       repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
       # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
-      
-## Horizontal pod autoscaling settings:
-  hpa:
-    enabled: false
-    # Minimum number of replicas
-    minReplicas: 2
-    # Maximum number of replicas
-    maxReplicas: 4
-    # Scaling behavior settings(optimal defaults)
-    behavior:
-      scaleUp:
-        stabilizationWindowSeconds: 0
-        percentValue: 100
-        percentPeriodSeconds: 15
-        podsValue: 5
-        podsPeriodSeconds: 15
-        selectPolicy: MAX
-      scaleDown:
-        stabilizationWindowSeconds: 0
-        percentValue: 10
-        percentPeriodSeconds: 60
-        podsValue: 5
-        podsPeriodSeconds: 60
-        selectPolicy: MIN
-    # Scaling (up/down) initiation conditions
-    metrics:
-      # When the CPU load in the pod is more than 50% (could be changed)
-      cpuUtilization: 50
-      # When the memory utilization in the pod is greater than 3Gi (could be changed)
-      memoryUtilization: 3Gi
-    ## Command to run in pod container:
-    command: ''
-    ## Set image repository:
-    image:
-      repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
-      # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
 
 ## Set image tag. `Dev-latest` by default.
       tag: dev-latest
@@ -104,3 +68,33 @@ global:
   iam_roles:
     r53: ""
     ssm: ""
+
+## Horizontal pod autoscaling settings:
+  hpa:
+    enabled: false
+    # Minimum number of replicas
+    minReplicas: 2
+    # Maximum number of replicas
+    maxReplicas: 4
+    # Scaling behavior settings(optimal defaults)
+    behavior:
+      scaleUp:
+        stabilizationWindowSeconds: 0
+        percentValue: 100
+        percentPeriodSeconds: 15
+        podsValue: 5
+        podsPeriodSeconds: 15
+        selectPolicy: MAX
+      scaleDown:
+        stabilizationWindowSeconds: 0
+        percentValue: 10
+        percentPeriodSeconds: 60
+        podsValue: 5
+        podsPeriodSeconds: 60
+        selectPolicy: MIN
+    # Scaling (up/down) initiation conditions
+    metrics:
+      # When the CPU load in the pod is more than 50% (could be changed)
+      cpuUtilization: 50
+      # When the memory utilization in the pod is greater than 3Gi (could be changed)
+      memoryUtilization: 3Gi
