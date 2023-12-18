@@ -28,7 +28,7 @@ global:
     region: aws-region
     containerName: ""
     domain: domain.local
-## Number of pod replicas(Disabled when HPA enabled):
+## Number of pod replicas(Disabled when HPA is enabled):
     replicas: 1
 
 ## Horizontal pod autoscaling settings:
