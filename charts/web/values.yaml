@@ -30,7 +30,13 @@ global:
     domain: domain.local
 ## Number of pod replicas(Disabled when HPA is enabled):
     replicas: 1
-
+    ## Command to run in pod container:
+    command: ''
+    ## Set image repository:
+    image:
+      repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
+      # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
+      
 ## Horizontal pod autoscaling settings:
   hpa:
     enabled: false
@@ -60,12 +66,9 @@ global:
       cpuUtilization: 50
       # When the memory utilization in the pod is greater than 3Gi (could be changed)
       memoryUtilization: 3Gi
-
-
-## Command to run in pod container:
+    ## Command to run in pod container:
     command: ''
-
-## Set image repository:
+    ## Set image repository:
     image:
       repository: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<app-name>
       # https://github.com/aws-actions/configure-aws-credentials/blob/main/action.yml#L71  We should use this in the future
