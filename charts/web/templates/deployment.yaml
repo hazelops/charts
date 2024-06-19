@@ -7,6 +7,18 @@ metadata:
   namespace: {{ .Values.global.env}}-{{ .Values.global.app.name}}
   annotations:
     link.argocd.argoproj.io/external-link: https://{{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.app.domain}}
+    {{- if .Values.global.datadog.enabled }}
+    ad.datadoghq.com/{{ .Values.global.app.name}}-deployment.logs: >-
+      [{
+        "source": "ruby",
+        "service": "{{.Values.global.app.name}}-service",
+        "auto_multi_line_detection": true
+      }]
+  labels:
+    tags.datadoghq.com/env: {{ .Values.global.env}}
+    tags.datadoghq.com/service: {{ .Values.global.datadog.service }}
+    tags.datadoghq.com/version: {{ .Values.global.datadog.version}}
+    {{- end }}
 spec:
   {{- if not .Values.global.hpa.enabled }}
   # Replicas count
@@ -20,6 +32,15 @@ spec:
     metadata:
       labels:
         app: {{ .Values.global.app.name}}
+        app.kubernetes.io/name: {{ .Values.global.app.name}}
+        {{- if .Values.global.datadog.enabled }}
+        tags.datadoghq.com/env: {{ .Values.global.env}}
+        tags.datadoghq.com/service: {{ .Values.global.app.name}}
+        tags.datadoghq.com/version: {{ .Values.global.datadog.version }}
+        admission.datadoghq.com/enabled: "true"
+        annotations:
+        admission.datadoghq.com/ruby-lib.version: {{ .Values.global.datadog.ruby_lib_version }}
+        {{- end }}
     spec:
       containers:
         - name: container

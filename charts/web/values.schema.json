@@ -4,6 +4,7 @@
   "required": [
     "global"
   ],
+  "additionalProperties": true,
   "properties": {
     "global": {
       "type": "object",
@@ -12,12 +13,14 @@
         "istio",
         "ingress",
         "app",
-        "hpa",
         "secrets",
         "service",
         "gateway",
-        "iam_roles"
+        "iam_roles",
+        "hpa",
+        "datadog"
       ],
+      "additionalProperties": true,
       "properties": {
         "env": {
           "type": "string"
@@ -31,6 +34,7 @@
             "domain",
             "port"
           ],
+          "additionalProperties": true,
           "properties": {
             "enabled": {
               "type": "boolean"
@@ -45,7 +49,7 @@
               "type": "string"
             },
             "port": {
-              "type": "integer"
+              "type": "number"
             }
           }
         },
@@ -58,6 +62,7 @@
             "domain",
             "port"
           ],
+          "additionalProperties": true,
           "properties": {
             "enabled": {
               "type": "boolean"
@@ -72,7 +77,7 @@
               "type": "string"
             },
             "port": {
-              "type": "integer"
+              "type": "number"
             }
           }
         },
@@ -83,8 +88,12 @@
             "region",
             "containerName",
             "domain",
-            "replicas"
+            "replicas",
+            "command",
+            "image",
+            "variables"
           ],
+          "additionalProperties": true,
           "properties": {
             "name": {
               "type": "string"
@@ -99,114 +108,7 @@
               "type": "string"
             },
             "replicas": {
-              "type": "integer"
-            }
-          }
-        },
-        "hpa": {
-          "type": "object",
-          "required": [
-            "enabled",
-            "minReplicas",
-            "maxReplicas",
-            "behavior",
-            "metrics"
-          ],
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            },
-            "minReplicas": {
-              "type": "integer"
-            },
-            "maxReplicas": {
-              "type": "integer"
-            },
-            "behavior": {
-              "type": "object",
-              "required": [
-                "scaleUp",
-                "scaleDown"
-              ],
-              "properties": {
-                "scaleUp": {
-                  "type": "object",
-                  "required": [
-                    "stabilizationWindowSeconds",
-                    "percentValue",
-                    "percentPeriodSeconds",
-                    "podsValue",
-                    "podsPeriodSeconds",
-                    "selectPolicy"
-                  ],
-                  "properties": {
-                    "stabilizationWindowSeconds": {
-                      "type": "integer"
-                    },
-                    "percentValue": {
-                      "type": "integer"
-                    },
-                    "percentPeriodSeconds": {
-                      "type": "integer"
-                    },
-                    "podsValue": {
-                      "type": "integer"
-                    },
-                    "podsPeriodSeconds": {
-                      "type": "integer"
-                    },
-                    "selectPolicy": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "scaleDown": {
-                  "type": "object",
-                  "required": [
-                    "stabilizationWindowSeconds",
-                    "percentValue",
-                    "percentPeriodSeconds",
-                    "podsValue",
-                    "podsPeriodSeconds",
-                    "selectPolicy"
-                  ],
-                  "properties": {
-                    "stabilizationWindowSeconds": {
-                      "type": "integer"
-                    },
-                    "percentValue": {
-                      "type": "integer"
-                    },
-                    "percentPeriodSeconds": {
-                      "type": "integer"
-                    },
-                    "podsValue": {
-                      "type": "integer"
-                    },
-                    "podsPeriodSeconds": {
-                      "type": "integer"
-                    },
-                    "selectPolicy": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            },
-            "metrics": {
-              "type": "object",
-              "required": [
-                "cpuUtilization",
-                "memoryUtilization"
-              ],
-              "properties": {
-                "cpuUtilization": {
-                  "type": "integer"
-                },
-                "memoryUtilization": {
-                  "type": "string"
-                }
-              }
+              "type": "number"
             },
             "command": {
               "type": "string"
@@ -218,6 +120,7 @@
                 "tag",
                 "imagePullPolicy"
               ],
+              "additionalProperties": true,
               "properties": {
                 "repository": {
                   "type": "string"
@@ -235,12 +138,14 @@
               "required": [
                 "list"
               ],
+              "additionalProperties": true,
               "properties": {
                 "list": {
                   "type": "object",
                   "required": [
                     "APP_NAME"
                   ],
+                  "additionalProperties": true,
                   "properties": {
                     "APP_NAME": {
                       "type": "string"
@@ -257,15 +162,18 @@
             "app",
             "list"
           ],
+          "additionalProperties": true,
           "properties": {
             "app": {
               "type": "string"
             },
             "list": {
               "type": "array",
+              "additionalItems": true,
               "items": {
                 "type": "string"
-              }
+              },
+              "uniqueItems": false
             }
           }
         },
@@ -275,12 +183,13 @@
             "port",
             "targetPort"
           ],
+          "additionalProperties": true,
           "properties": {
             "port": {
-              "type": "integer"
+              "type": "number"
             },
             "targetPort": {
-              "type": "integer"
+              "type": "number"
             }
           }
         },
@@ -289,6 +198,7 @@
           "required": [
             "tlsIssuer"
           ],
+          "additionalProperties": true,
           "properties": {
             "tlsIssuer": {
               "type": "string"
@@ -301,11 +211,144 @@
             "r53",
             "ssm"
           ],
+          "additionalProperties": true,
           "properties": {
             "r53": {
               "type": "string"
             },
             "ssm": {
+              "type": "string"
+            }
+          }
+        },
+        "hpa": {
+          "type": "object",
+          "required": [
+            "enabled",
+            "minReplicas",
+            "maxReplicas",
+            "behavior",
+            "metrics"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "minReplicas": {
+              "type": "number"
+            },
+            "maxReplicas": {
+              "type": "number"
+            },
+            "behavior": {
+              "type": "object",
+              "required": [
+                "scaleUp",
+                "scaleDown"
+              ],
+              "additionalProperties": true,
+              "properties": {
+                "scaleUp": {
+                  "type": "object",
+                  "required": [
+                    "stabilizationWindowSeconds",
+                    "percentValue",
+                    "percentPeriodSeconds",
+                    "podsValue",
+                    "podsPeriodSeconds",
+                    "selectPolicy"
+                  ],
+                  "additionalProperties": true,
+                  "properties": {
+                    "stabilizationWindowSeconds": {
+                      "type": "number"
+                    },
+                    "percentValue": {
+                      "type": "number"
+                    },
+                    "percentPeriodSeconds": {
+                      "type": "number"
+                    },
+                    "podsValue": {
+                      "type": "number"
+                    },
+                    "podsPeriodSeconds": {
+                      "type": "number"
+                    },
+                    "selectPolicy": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "scaleDown": {
+                  "type": "object",
+                  "required": [
+                    "stabilizationWindowSeconds",
+                    "percentValue",
+                    "percentPeriodSeconds",
+                    "podsValue",
+                    "podsPeriodSeconds",
+                    "selectPolicy"
+                  ],
+                  "additionalProperties": true,
+                  "properties": {
+                    "stabilizationWindowSeconds": {
+                      "type": "number"
+                    },
+                    "percentValue": {
+                      "type": "number"
+                    },
+                    "percentPeriodSeconds": {
+                      "type": "number"
+                    },
+                    "podsValue": {
+                      "type": "number"
+                    },
+                    "podsPeriodSeconds": {
+                      "type": "number"
+                    },
+                    "selectPolicy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "metrics": {
+              "type": "object",
+              "required": [
+                "cpuUtilization",
+                "memoryUtilization"
+              ],
+              "additionalProperties": true,
+              "properties": {
+                "cpuUtilization": {
+                  "type": "number"
+                },
+                "memoryUtilization": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "datadog": {
+          "type": "object",
+          "required": [
+            "enabled",
+            "version",
+            "ruby_lib_version"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "string"
+            },
+            "ruby_lib_version": {
               "type": "string"
             }
           }

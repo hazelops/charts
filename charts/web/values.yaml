@@ -98,3 +98,8 @@ global:
       cpuUtilization: 50
       # When the memory utilization in the pod is greater than 3Gi (could be changed)
       memoryUtilization: 3Gi
+  # Datadog options:
+  datadog:
+    enabled: false
+    version: "v7.54"
+    ruby_lib_version: "v1.23.1"
