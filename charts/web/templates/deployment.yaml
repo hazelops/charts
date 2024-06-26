@@ -10,14 +10,17 @@ metadata:
     {{- if .Values.global.datadog.enabled }}
     ad.datadoghq.com/{{ .Values.global.app.name}}-deployment.logs: >-
       [{
-        "source": "ruby",
+        "source": {{ .Values.global.datadog.app_type}},
         "service": "{{.Values.global.app.name}}-service",
-        "auto_multi_line_detection": true
+      {{- if .Values.global.datadog.log_multiline_detection }}
+        "auto_multi_line_detection": true,
+        "pattern" : {{ .Values.global.datadog.log_multiline_pattern}}
+      {{- end }}
       }]
   labels:
     tags.datadoghq.com/env: {{ .Values.global.env}}
     tags.datadoghq.com/service: {{ .Values.global.datadog.service }}
-    tags.datadoghq.com/version: {{ .Values.global.datadog.version}}
+    tags.datadoghq.com/version: {{ .Values.global.datadog.agent_version}}
     {{- end }}
 spec:
   {{- if not .Values.global.hpa.enabled }}

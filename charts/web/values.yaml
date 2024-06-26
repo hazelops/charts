@@ -100,6 +100,14 @@ global:
       memoryUtilization: 3Gi
   # Datadog options:
   datadog:
-    enabled: true
-    version: "v7.54"
-    ruby_lib_version: "v1.23.1"
+    enabled: false
+    # Version of Datadog Agent https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/?tab=kubernetes#full-configuration
+    agent_version: 'v7.54'
+    # Version of Ruby library for Datadog tracing
+    ruby_lib_version: 'v1.23.1'
+    # Set the app type here https://docs.datadoghq.com/containers/kubernetes/log/?tab=helm#configure-a-single-container
+    app_type: "ruby"
+    # Enable this to make Datadog detect multilined logs
+    log_multiline_detection: false
+    # If log_multiline_detection is true, then pattern should be set. For more info:
+    log_multiline_pattern:  '^[A-Z],.\[.*'
