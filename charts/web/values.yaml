@@ -101,7 +101,8 @@ global:
   # Datadog options:
   datadog:
     enabled: false
-    # Version of Datadog Agent https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/?tab=kubernetes#full-configuration
+    # For more information about agent_version, ruby_lib_version and other options, please refer:
+    # https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/?tab=traces# and https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/?tab=kubernetes#partial-configuration
     agent_version: 'v7.54'
     # Version of Ruby library for Datadog tracing
     ruby_lib_version: 'v1.23.1'
