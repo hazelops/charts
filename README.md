@@ -23,7 +23,7 @@ To install Helm, refer to the [Helm install guide](https://github.com/helm/helm#
 
 ## Using Helm
 
-Once you have installed the Helm client, you can deploy a Bitnami Helm Chart into a Kubernetes cluster.
+Once you have installed the Helm client, you can deploy Hazelops Helm Chart into a Kubernetes cluster.
 
 Please refer to the [Quick Start guide](https://helm.sh/docs/intro/quickstart/) if you wish to get running in just a few commands, otherwise the [Using Helm Guide](https://helm.sh/docs/intro/using_helm/) provides detailed instructions on how to use the Helm client to manage packages on your Kubernetes cluster.
 
