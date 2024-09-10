@@ -4,6 +4,7 @@
   "required": [
     "global"
   ],
+  "additionalProperties": true,
   "properties": {
     "global": {
       "type": "object",
@@ -12,12 +13,14 @@
         "istio",
         "ingress",
         "app",
-        "hpa",
         "secrets",
         "service",
         "gateway",
-        "iam_roles"
+        "iam_roles",
+        "hpa",
+        "datadog"
       ],
+      "additionalProperties": true,
       "properties": {
         "env": {
           "type": "string"
@@ -31,6 +34,7 @@
             "domain",
             "port"
           ],
+          "additionalProperties": true,
           "properties": {
             "enabled": {
               "type": "boolean"
@@ -58,6 +62,7 @@
             "domain",
             "port"
           ],
+          "additionalProperties": true,
           "properties": {
             "enabled": {
               "type": "boolean"
@@ -83,8 +88,12 @@
             "region",
             "containerName",
             "domain",
-            "replicas"
+            "replicas",
+            "command",
+            "image",
+            "variables"
           ],
+          "additionalProperties": true,
           "properties": {
             "name": {
               "type": "string"
@@ -100,6 +109,115 @@
             },
             "replicas": {
               "type": "integer"
+            },
+            "command": {
+              "type": "string"
+            },
+            "image": {
+              "type": "object",
+              "required": [
+                "repository",
+                "tag",
+                "imagePullPolicy"
+              ],
+              "additionalProperties": true,
+              "properties": {
+                "repository": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                },
+                "imagePullPolicy": {
+                  "type": "string"
+                }
+              }
+            },
+            "variables": {
+              "type": "object",
+              "required": [
+                "list"
+              ],
+              "additionalProperties": true,
+              "properties": {
+                "list": {
+                  "type": "object",
+                  "required": [
+                    "APP_NAME"
+                  ],
+                  "additionalProperties": true,
+                  "properties": {
+                    "APP_NAME": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "secrets": {
+          "type": "object",
+          "required": [
+            "app",
+            "list"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "app": {
+              "type": "string"
+            },
+            "list": {
+              "type": "array",
+              "additionalItems": true,
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          }
+        },
+        "service": {
+          "type": "object",
+          "required": [
+            "port",
+            "targetPort"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "port": {
+              "type": "integer"
+            },
+            "targetPort": {
+              "type": "integer"
+            }
+          }
+        },
+        "gateway": {
+          "type": "object",
+          "required": [
+            "tlsIssuer"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "tlsIssuer": {
+              "type": "string"
+            }
+          }
+        },
+        "iam_roles": {
+          "type": "object",
+          "required": [
+            "r53",
+            "ssm"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "r53": {
+              "type": "string"
+            },
+            "ssm": {
+              "type": "string"
             }
           }
         },
@@ -112,6 +230,7 @@
             "behavior",
             "metrics"
           ],
+          "additionalProperties": true,
           "properties": {
             "enabled": {
               "type": "boolean"
@@ -128,6 +247,7 @@
                 "scaleUp",
                 "scaleDown"
               ],
+              "additionalProperties": true,
               "properties": {
                 "scaleUp": {
                   "type": "object",
@@ -139,6 +259,7 @@
                     "podsPeriodSeconds",
                     "selectPolicy"
                   ],
+                  "additionalProperties": true,
                   "properties": {
                     "stabilizationWindowSeconds": {
                       "type": "integer"
@@ -170,6 +291,7 @@
                     "podsPeriodSeconds",
                     "selectPolicy"
                   ],
+                  "additionalProperties": true,
                   "properties": {
                     "stabilizationWindowSeconds": {
                       "type": "integer"
@@ -199,6 +321,7 @@
                 "cpuUtilization",
                 "memoryUtilization"
               ],
+              "additionalProperties": true,
               "properties": {
                 "cpuUtilization": {
                   "type": "integer"
@@ -207,105 +330,37 @@
                   "type": "string"
                 }
               }
-            },
-            "command": {
-              "type": "string"
-            },
-            "image": {
-              "type": "object",
-              "required": [
-                "repository",
-                "tag",
-                "imagePullPolicy"
-              ],
-              "properties": {
-                "repository": {
-                  "type": "string"
-                },
-                "tag": {
-                  "type": "string"
-                },
-                "imagePullPolicy": {
-                  "type": "string"
-                }
-              }
-            },
-            "variables": {
-              "type": "object",
-              "required": [
-                "list"
-              ],
-              "properties": {
-                "list": {
-                  "type": "object",
-                  "required": [
-                    "APP_NAME"
-                  ],
-                  "properties": {
-                    "APP_NAME": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
             }
           }
         },
-        "secrets": {
+        "datadog": {
           "type": "object",
           "required": [
-            "app",
-            "list"
+            "enabled",
+            "agent_version",
+            "ruby_lib_version",
+            "app_type",
+            "log_multiline_detection",
+            "log_multiline_pattern"
           ],
+          "additionalProperties": true,
           "properties": {
-            "app": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "agent_version": {
               "type": "string"
             },
-            "list": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "service": {
-          "type": "object",
-          "required": [
-            "port",
-            "targetPort"
-          ],
-          "properties": {
-            "port": {
-              "type": "integer"
-            },
-            "targetPort": {
-              "type": "integer"
-            }
-          }
-        },
-        "gateway": {
-          "type": "object",
-          "required": [
-            "tlsIssuer"
-          ],
-          "properties": {
-            "tlsIssuer": {
-              "type": "string"
-            }
-          }
-        },
-        "iam_roles": {
-          "type": "object",
-          "required": [
-            "r53",
-            "ssm"
-          ],
-          "properties": {
-            "r53": {
+            "ruby_lib_version": {
               "type": "string"
             },
-            "ssm": {
+            "app_type": {
+              "type": "string"
+            },
+            "log_multiline_detection": {
+              "type": "boolean"
+            },
+            "log_multiline_pattern": {
               "type": "string"
             }
           }
