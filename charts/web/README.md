@@ -83,6 +83,11 @@ See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_h
 helm show values hazelops/web
 ```
 
+## Datadog monitoring:
+
+In order to use Datadog monitoring options - [Datadog](https://docs.datadoghq.com/containers/kubernetes/installation/?tab=datadogoperator) must be installed in the cluster. Otherwise, application monitoring with Datadog will not work.
+
+
 ## Values
 
 | Key | Type | Default | Description |

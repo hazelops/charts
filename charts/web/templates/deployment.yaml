@@ -8,15 +8,6 @@ metadata:
   annotations:
     link.argocd.argoproj.io/external-link: https://{{ .Values.global.app.name}}.{{ .Values.global.env}}.{{.Values.global.app.domain}}
     {{- if .Values.global.datadog.enabled }}
-    ad.datadoghq.com/{{ .Values.global.app.name}}-deployment.logs: >-
-      [{
-        "source": {{ .Values.global.datadog.app_type}},
-        "service": "{{.Values.global.app.name}}-service",
-      {{- if .Values.global.datadog.log_multiline_detection }}
-        "auto_multi_line_detection": true,
-        "pattern" : {{ .Values.global.datadog.log_multiline_pattern}}
-      {{- end }}
-      }]
   labels:
     tags.datadoghq.com/env: {{ .Values.global.env}}
     tags.datadoghq.com/service: {{ .Values.global.datadog.service }}
@@ -43,6 +34,15 @@ spec:
         admission.datadoghq.com/enabled: "true"
         annotations:
         admission.datadoghq.com/ruby-lib.version: {{ .Values.global.datadog.ruby_lib_version }}
+        ad.datadoghq.com/{{ .Values.global.app.name}}-deployment.logs: >-
+          [{
+            "source": {{ .Values.global.datadog.app_type}},
+            "service": "{{.Values.global.app.name}}-service",
+          {{- if .Values.global.datadog.log_multiline_detection }}
+            "auto_multi_line_detection": true,
+            "pattern" : {{ .Values.global.datadog.log_multiline_pattern}}
+          {{- end }}
+          }]
         {{- end }}
     spec:
       containers:
